@@ -49,8 +49,9 @@
     "jsonapi"
   ],
   "dependencies": {
+    "babel-runtime": "^6.6.1",
     "bluebird": "^2.9.4",
-    "babel-runtime": "^6.6.1"
+    "lodash": "^4.11.1"
   },
   "devDependencies": {
     "babel-cli": "^6.0.15",
