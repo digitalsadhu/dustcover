@@ -1,9 +1,10 @@
 launchers:
   Node:
-    command: node_modules/.bin/mocha --ui mocha-given -R tap
+    command: node_modules/.bin/mocha --check-leaks -R tap -t 5000 -b test
     protocol: tap
 launch_in_dev:
 - Node
 src_files:
   - "test/**/*.spec.js"
   - "index.js"
+  - "lib/**/*.js"
