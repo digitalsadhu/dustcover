@@ -6,7 +6,7 @@ JSONAPI plugin for the bookshelfjs ORM
 
 [![Media Suite](http://mediasuite.co.nz/ms-badge.png)](http://mediasuite.co.nz)
 
-[![Build Status](https://travis-ci.org/mediasuitenz/dustcover.svg)](https://travis-ci.org/digitalsadhu/dustcover)
+[![Build Status](https://travis-ci.org/digitalsadhu/dustcover.svg?branch=master)](https://travis-ci.org/digitalsadhu/dustcover)
 
 ## Installation
 
