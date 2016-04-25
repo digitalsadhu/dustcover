@@ -18,10 +18,10 @@ describe('dustcover', function () {
   })
 
   describe('fetching all records', function () {
-    it('should fetch an array of models in JSON API format', function () {
+    it('toJSON should serialize an array of models in JSON API format', function () {
       return Models.Book.fetchAll().then((books) => {
         const serialized = books.toJSON({type: 'books'})
-        expect(serialized).to.have.key('data')
+        expect(serialized).to.include.key('data')
         expect(serialized.data).to.be.an('array')
         expect(serialized.data[0]).to.include.keys('id', 'type', 'attributes')
         expect(serialized.data[0].type).to.equal('books')
@@ -46,14 +46,27 @@ describe('dustcover', function () {
   })
 
   describe('fetching a single record', function () {
-    it('should fetch a model in JSON API format', function () {
-      return new Models.Cat({id: 1}).fetch().then((cats) => {
-        const serialized = cats.toJSON()
-        expect(serialized).to.have.key('data')
+    it('toJSON should serialize a model in JSON API format', function () {
+      return new Models.Cat({id: 1}).fetch().then((cat) => {
+        const serialized = cat.toJSON()
+        expect(serialized).to.include.key('data')
         expect(serialized.data).to.be.an('object')
         expect(serialized.data).to.include.keys('id', 'type', 'attributes', 'links')
         expect(serialized.data.type).to.equal('cats')
         expect(serialized.data.links.self).to.equal('http://localhost:3000/cats/1')
+      })
+    })
+
+    it('relationships key should be populated', function () {
+      return new Models.Cat({id: 1}).fetch().then((cat) => {
+        const serialized = cat.toJSON()
+        expect(serialized.data).to.include.key('relationships')
+        expect(serialized.data.relationships).to.be.an('object')
+        expect(serialized.data.relationships).to.include.key('owner')
+        expect(serialized.data.relationships.owner).to.include.key('links')
+        expect(serialized.data.relationships.owner.links).to.include.key('related')
+        expect(serialized.data.relationships.owner.links.related).to.equal('http://localhost:3000/cats/1/owner')
+        expect(serialized.data.relationships.owner).to.not.include.key('data')
       })
     })
   })

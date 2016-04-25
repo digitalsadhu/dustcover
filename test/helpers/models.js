@@ -1,15 +1,32 @@
 module.exports = function (Bookshelf) {
-  return {
+  const models = {
     Book: Bookshelf.Model.extend({
       tableName: 'book'
     }),
     Cat: Bookshelf.Model.extend({
       tableName: 'cat',
-      type: 'cats'
+      type: 'cats',
+      relationships: ['owner', 'mice'],
+      owner () {
+        return this.belongsTo(models.Owner)
+      },
+      mice () {
+        return this.hasMany(models.Mouse)
+      }
     }),
     House: Bookshelf.Model.extend({
       tableName: 'house',
       type: 'houses'
+    }),
+    Owner: Bookshelf.Model.extend({
+      tableName: 'owner',
+      type: 'owners'
+    }),
+    Mouse: Bookshelf.Model.extend({
+      tableName: 'mouse',
+      type: 'mice'
     })
   }
+
+  return models
 }
