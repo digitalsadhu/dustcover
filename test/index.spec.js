@@ -57,7 +57,13 @@ describe('dustcover', function () {
       })
     })
 
-    it('relationships key should be populated', function () {
+    it('relationships key should absent if none exist', function () {
+      return new Models.Book({id: 1}).fetch().then((book) => {
+        expect(book.toJSON().data).to.not.include.key('relationships')
+      })
+    })
+
+    it('relationships key should be populated if any exist', function () {
       return new Models.Cat({id: 1}).fetch().then((cat) => {
         const serialized = cat.toJSON()
         expect(serialized.data).to.include.key('relationships')
