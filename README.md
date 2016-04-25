@@ -8,6 +8,12 @@ JSONAPI plugin for the bookshelfjs ORM
 
 [![Build Status](https://travis-ci.org/digitalsadhu/dustcover.svg?branch=master)](https://travis-ci.org/digitalsadhu/dustcover)
 
+## Features
+
+The plan for dustcover is to provide a full featured [jsonapi](http://jsonapi.org/) implementation for bookshelf with little to no
+configuration. It's very early (alpha) days at this point and the only thing thats even partially supported
+is jsonapi serialization. Stay tuned. Chip in if this interests you, PRs and collaboration welcome.
+
 ## Installation
 
 ```
