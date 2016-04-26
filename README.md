@@ -37,7 +37,18 @@ const bookshelf = Bookshelf(Knex({
   useNullAsDefault: true
 }))
 
-const options = { host: 'http://localhost:3000' }
+const options = {
+  // Set the host that will be used in links during serialization
+  // default: host omitted from links
+  host: 'http://localhost:3000',
+
+  // Specify whether models should be serialized by default, or
+  // require opting in to serialization
+  // when true, models will need to opt in to serialization by
+  // defining a key `jsonapi` and setting it to true. (See below)
+  // default: false
+  optIn: false
+}
 bookshelf.plugin(dustcover, options)
 ```
 
@@ -57,6 +68,14 @@ const Cat = bookshelf.Model.extend({
   // should be handled. You do so by specifying them in an array
   relationships: ['owner', 'mice'],
 
+  // allows opting in or out of jsonapi serialization by default for
+  // the model. If optIn (see above) is set to true then you will
+  // need to set jsonapi: true on every model you wish to be serialized
+  // to jsonapi when calling `model.toJSON`
+  // You can override these settings by setting jsonapi: true in toJSON
+  // like so: model.toJSON({jsonapi: true})
+  jsonapi: true,
+
   // standard bookshelf relationship definitions
   // these will be referenced by dustcover if they have been
   // specified in the relationships array above.
@@ -71,7 +90,7 @@ const Cat = bookshelf.Model.extend({
 
 ### Serializing models
 
-dustcover hyjacks the serialize methods of models and collections such
+dustcover overrides the serialize methods of models and collections such
 that when you call `collection.toJSON()` or `model.toJSON()` you will get
 jsonapi compatible data instead of just the usual attributes hash.
 
@@ -119,4 +138,10 @@ cat.toJSON({type: 'kittycats'})
 Remove or adjust relationship serialization like so:
 ```js
 cat.toJSON({relationships: false})
+```
+
+Force jsonapi serialization or non serialization like so:
+(see above for additional details)
+```js
+cat.toJSON({jsonapi: false})
 ```
