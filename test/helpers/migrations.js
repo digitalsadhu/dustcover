@@ -2,7 +2,7 @@ var _ = require('lodash')
 var Promise = require('bluebird')
 
 var drops = [
-  'book', 'cat', 'house', 'owner', 'mouse'
+  'book', 'cat', 'house', 'owner', 'mouse', 'hat', 'dress'
 ]
 
 module.exports = function (Bookshelf) {
@@ -46,6 +46,20 @@ module.exports = function (Bookshelf) {
       table.string('name')
       table.string('description')
       table.integer('cat_id').unique().references('cat.id')
+    })
+  })
+  .then(function () {
+    return schema.createTable('hat', function (table) {
+      table.increments('id').primary()
+      table.string('name')
+      table.string('description')
+    })
+  })
+  .then(function () {
+    return schema.createTable('dress', function (table) {
+      table.increments('id').primary()
+      table.string('name')
+      table.string('description')
     })
   })
 }

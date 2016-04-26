@@ -7,7 +7,10 @@ module.exports = function (Bookshelf) {
     knex('book').del(),
     knex('cat').del(),
     knex('house').del(),
-    knex('owner').del()
+    knex('owner').del(),
+    knex('mouse').del(),
+    knex('hat').del(),
+    knex('dress').del()
   )
   .then(() => Promise.join(
     knex('book').insert({id: 1, name: 'book 1', description: 'my first book'}),
@@ -16,6 +19,8 @@ module.exports = function (Bookshelf) {
     knex('cat').insert({id: 1, name: 'cat 1', description: 'my first cat', owner_id: 1}),
     knex('cat').insert({id: 2, name: 'cat 2', description: 'my second cat'}),
     knex('owner').insert({id: 1, name: 'Mr Jones', description: 'cat lover'}),
-    knex('mouse').insert({id: 1, name: 'mouse 1', description: 'cat slave', cat_id: 1})
+    knex('mouse').insert({id: 1, name: 'mouse 1', description: 'cat slave', cat_id: 1}),
+    knex('hat').insert({id: 1, name: 'hat 1', description: 'a hat'}),
+    knex('dress').insert({id: 1, name: 'dress 1', description: 'a dress'})
   ))
 }

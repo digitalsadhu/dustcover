@@ -25,6 +25,16 @@ module.exports = function (Bookshelf) {
     Mouse: Bookshelf.Model.extend({
       tableName: 'mouse',
       type: 'mice'
+    }),
+    Hat: Bookshelf.Model.extend({
+      tableName: 'hat',
+      type: 'hats',
+      jsonapi: true
+    }),
+    Dress: Bookshelf.Model.extend({
+      tableName: 'dress',
+      type: 'dresses',
+      jsonapi: false
     })
   }
 

@@ -1,3 +1,5 @@
+import { firstDefined } from './utils'
+
 export default function (Bookshelf, config) {
   const { Model } = Bookshelf
 
@@ -9,11 +11,15 @@ export default function (Bookshelf, config) {
     serialize (options = {}) {
       const type = options.type || this.type
       const relationships = options.relationships || this.relationships
+      const isJSONAPI = firstDefined(options.jsonapi, this.jsonapi, !config.optIn)
 
       // TODO: calculate withRelated
       const withRelated = false
 
       const serialized = Model.prototype.serialize.apply(this, arguments)
+
+      if (!isJSONAPI) return serialized
+
       const { id } = serialized
       delete serialized.id
 
