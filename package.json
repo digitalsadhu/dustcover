@@ -46,7 +46,8 @@
   "keywords": [
     "bookshelf",
     "orm",
-    "jsonapi"
+    "jsonapi",
+    "plugin"
   ],
   "dependencies": {
     "babel-runtime": "^6.6.1",
